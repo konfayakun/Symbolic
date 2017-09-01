@@ -26,7 +26,7 @@ public class Phrase{
         String buffer="";
 
         for(int i=0;i<value.length();i++){
-
+            //inja bayad tamum she
         }
     }
 
@@ -37,7 +37,7 @@ public class Phrase{
             if(isAtom(e))
                 ret.add(new NumericVariable(e));
             else{
-
+                ret.add(new Variable(e));
             }
         });
         return ret;

@@ -95,46 +95,6 @@ public class NumericVariable extends Variable{
         String parts[]=value.split("/");
         if(parts.length==1)return value;
         String ret=value.replace("/","⁄");
-        return toSuperScriptNumbers(parts[0])+"⁄"+toSubScriptNumbers(parts[1]);
-    }
-
-    String toSuperScriptNumbers(String s){
-        String ret="";
-        for(int i=0;i<s.length();i++){
-            char buffer=s.charAt(i);
-            if(buffer<'1'||buffer>'3')
-                ret=ret+(char) (8308+buffer-'4');
-            else{
-                if(buffer=='1')
-                    ret+=(char) 185;
-                if(buffer=='2')
-                    ret+=(char) 178;
-                if(buffer=='3')
-                    ret+=(char) 179;
-            }
-        }
-        return ret;
-    }
-    String toSubScriptNumbers(String s){
-        String ret="";
-        for(int i=0;i<s.length();i++){
-            char buffer=s.charAt(i);
-            ret+=(char)('₀'+(buffer-'0'));
-        }
-        return ret;
-    }
-
-    public static void main(String[] args){
-//        System.out.println("aa*+b".split("\\+|-|\\*|=")[2]);
-        System.out.println(Phrase.isAtom("5/2"));
-        NumericVariable s=new NumericVariable("10/2");
-        NumericVariable p=new NumericVariable("3/5");
-        System.out.println(s.toSuperScriptNumbers("0123456789"));
-        
-        System.out.println(s.toSubScriptNumbers("0123456789"));
-        System.out.println(s.sum(p));
-        System.out.println(s.sum(p).simplify());
-        System.out.println(s);
-        System.out.println(s.simplify());
+        return Utils.toSuperScriptNumbers(parts[0])+"⁄"+Utils.toSubScriptNumbers(parts[1]);
     }
 }

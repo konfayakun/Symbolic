@@ -71,4 +71,32 @@ public class Utils {
             return number1;
         return gcd(number2, number1%number2);
     }
+    
+    
+    public static String toSuperScriptNumbers(String s){
+        String ret="";
+        for(int i=0;i<s.length();i++){
+            char buffer=s.charAt(i);
+            if(buffer<'1'||buffer>'3')
+                ret=ret+(char) (8308+buffer-'4');
+            else{
+                if(buffer=='1')
+                    ret+=(char) 185;
+                if(buffer=='2')
+                    ret+=(char) 178;
+                if(buffer=='3')
+                    ret+=(char) 179;
+            }
+        }
+        return ret;
+    }
+    public static String toSubScriptNumbers(String s){
+        String ret="";
+        for(int i=0;i<s.length();i++){
+            char buffer=s.charAt(i);
+            ret+=(char)('₀'+(buffer-'0'));
+        }
+        return ret;
+    }
+
 }

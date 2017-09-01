@@ -9,7 +9,6 @@ package symbolic;
  *
  * @author Violets
  */
-
 public class Variable{
 
     private String lable;
@@ -20,6 +19,26 @@ public class Variable{
         this.lable=lable;
         this.power=power;
         this.coefficient=coefficient;
+    }
+
+    public Variable(String value){ //predict variable name
+        String stringCoefficent="";
+        char buffer=value.charAt(0);
+        while(buffer<='9'&&buffer>='0'){
+            stringCoefficent+=buffer;
+            value=value.substring(1);
+            buffer=value.charAt(0);
+        }
+        String[] tokens=value.split("\\^");
+        if("".equals(stringCoefficent))
+            this.coefficient=new NumericVariable("1");
+        else
+            this.coefficient=new NumericVariable(stringCoefficent);
+        if("".equals(tokens[1]))
+            this.power=new NumericVariable("1");
+        else
+            this.power=new NumericVariable(tokens[1]);
+        this.lable=tokens[0];
     }
 
     public void setName(String lable){
@@ -48,8 +67,13 @@ public class Variable{
         power=new NumericVariable(parts[1].replace("^",""));
     }
 
+    @Override
+    public String toString(){
+        return coefficient+lable+Utils.toSuperScriptNumbers(power+"");
+    }
+    
+
     public Variable(){
     }
-
+    
 }
-
