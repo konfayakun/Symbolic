@@ -17,38 +17,38 @@ import java.util.Queue;
 public class Utils {
     
     public static ArrayList<Integer> Prime_N(int n){
-        ArrayList<Integer> avals =new ArrayList<>();
-        Queue<Integer> mq=new LinkedList<>();
-        Queue<Integer> bu=new LinkedList<>();
-        int maxele;
+        ArrayList<Integer> primes =new ArrayList<>();
+        Queue<Integer> mainQueue=new LinkedList<>();
+        Queue<Integer> bufferQueue=new LinkedList<>();
+        int maxElement;
         for(int i=2;i<n;i++){
-            mq.add(i);
+            mainQueue.add(i);
             
         }
-        maxele=n-1;
-        if(mq.size()==0) return new ArrayList<Integer>();
-        int cpval=mq.poll();
+        maxElement=n-1;
+        if(mainQueue.size()==0) return new ArrayList<>();
+        int cpval=mainQueue.poll();
         
-        while(cpval*cpval<=maxele){
-            avals.add(cpval);
-            while(mq.size()>0){
-                int buffer=mq.poll();
+        while(cpval*cpval<=maxElement){
+            primes.add(cpval);
+            while(mainQueue.size()>0){
+                int buffer=mainQueue.poll();
                 if(buffer%cpval!=0){
-                    bu.add(buffer);
-                    maxele=buffer;
+                    bufferQueue.add(buffer);
+                    maxElement=buffer;
                 }
             }
-            mq=bu;
+            mainQueue=bufferQueue;
 //            System.out.println(mq);
-            bu=new LinkedList<>();
-            cpval=mq.poll();
+            bufferQueue=new LinkedList<>();
+            cpval=mainQueue.poll();
         }
-        avals.add(cpval);
-        while(mq.size()>0)
-            avals.add(mq.poll());
-        return avals;
+        primes.add(cpval);
+        while(mainQueue.size()>0)
+            primes.add(mainQueue.poll());
+        return primes;
     } 
-    public static int gcc(int a,int b){
+    public static int lcm(int a,int b){
         int min,max;
         if(a>b){
             min=b;max=a;
@@ -57,19 +57,13 @@ public class Utils {
         }
         int buffer=a*b;
         int n=(int)Math.sqrt(min);
-//        System.out.println(n);
-        ArrayList<Integer> avl=Prime_N(min/2);
-//        System.out.println(avl);
-        avl.add(min);
-        for(int num:avl){
-            if(min%num==0 && max%num==0){
-                buffer/=num;
-            }
-        }
+        ArrayList<Integer> primes=Prime_N(min/2);
+        primes.add(min);
+        buffer=primes.stream().filter((num) -> (min%num==0 && max%num==0)).map((num) -> num).reduce(buffer,(accumulator,_item) -> accumulator/_item);
         return buffer;
     }
     public static void main(String[] args){
-        System.out.println(gcc(100,27));
+        System.out.println(lcm(100,27));
         System.out.println(gcd(200,12));
     }
     public static int gcd(int number1, int number2) {

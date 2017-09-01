@@ -10,42 +10,42 @@ package symbolic;
  * @author Violets
  */
 
-class Variable{
+public class Variable{
 
-    private String name;
-    private NumericVariable pow;
-    private NumericVariable zarib;
+    private String lable;
+    private NumericVariable power;
+    private NumericVariable coefficient;
 
-    public Variable(String name,NumericVariable pow,NumericVariable zarib){
-        this.name=name;
-        this.pow=pow;
-        this.zarib=zarib;
+    public Variable(String lable,NumericVariable power,NumericVariable coefficient){
+        this.lable=lable;
+        this.power=power;
+        this.coefficient=coefficient;
     }
 
-    public void setName(String name){
-        this.name=name;
+    public void setName(String lable){
+        this.lable=lable;
     }
 
-    public void setPower(NumericVariable pow){
-        this.pow=pow;
+    public void setPower(NumericVariable power){
+        this.power=power;
     }
 
-    public void setZarib(NumericVariable zarib){
-        this.zarib=zarib;
+    public void setCoefficient(NumericVariable coefficient){
+        this.coefficient=coefficient;
     }
 
-    public void setAttrib(String name,NumericVariable pow,NumericVariable zarib){
-        this.name=name;
-        this.pow=pow;
-        this.zarib=zarib;
+    public void setAttrib(String lable,NumericVariable power,NumericVariable coefficient){
+        this.lable=lable;
+        this.power=power;
+        this.coefficient=coefficient;
     }
 
     public Variable(String completeVar,String variableName){
         String[] parts=completeVar.split(variableName);
         if(parts.length!=2)
             return;
-        zarib=new NumericVariable(parts[0]);
-        pow=new NumericVariable(parts[1].replace("^",""));
+        coefficient=new NumericVariable(parts[0]);
+        power=new NumericVariable(parts[1].replace("^",""));
     }
 
     public Variable(){

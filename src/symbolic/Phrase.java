@@ -30,7 +30,7 @@ public class Phrase{
         }
     }
 
-    public static ArrayList<Variable> atoms(String pr){
+    public static ArrayList<Variable> getAtoms(String pr){
         ArrayList<Variable> ret=new ArrayList<>();
         String step1Process[]=pr.split("\\+|-|\\*");
         Arrays.stream(step1Process).forEach(e -> {

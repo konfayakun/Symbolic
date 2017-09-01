@@ -13,78 +13,79 @@ package symbolic;
 //public class NumericVariable {
 //
 //}
-class NumericVariable extends Variable{
+public class NumericVariable extends Variable{
 
     private String value;
-    private int numer;
-    private int denom;
-    private boolean sahih;
+    private int numerator;
+    private int denominator;
+    private boolean isInt;
 
     public NumericVariable(String value){
         this.value=value;
         if(value.contains("/")){
             String squ[]=value.split("/");
-            numer=Integer.parseInt(squ[0]);
-            denom=Integer.parseInt(squ[1]);
-            sahih=false;
+            numerator=Integer.parseInt(squ[0]);
+            denominator=Integer.parseInt(squ[1]);
+            isInt=false;
         } else{
-            numer=Integer.parseInt(value);
-            denom=1;
-            sahih=true;
+            numerator=Integer.parseInt(value);
+            denominator=1;
+            isInt=true;
         }
     }
 
-    public NumericVariable(int num,int den) throws Exception{
-        if(den==0)
+    public NumericVariable(int numerator,int denominator) throws Exception{
+        if(denominator==0)
             throw new Exception("Denominator can't be zero!");
-        numer=num;
-        denom=den;
-        if(den==1){
-            value=String.valueOf(numer);
-            sahih=true;
+        this.numerator=numerator;
+        this.denominator=denominator;
+        if(denominator==1){
+            value=String.valueOf(numerator);
+            isInt=true;
         } else{
-            value=numer+"/"+denom;
-            sahih=false;
+            value=numerator+"/"+denominator;
+            isInt=false;
         }
     }
 
-    //geters:
+    public int getDenominator(){
+        return denominator;
+    }
+
+    public int getNumerator(){
+        return numerator;
+    }
+
     public String getValue(){
         return value;
     }
 
-    public int getNumer(){
-        return numer;
-    }
-
-    public int getDenom(){
-        return denom;
-    }
+ 
 
     ///------------------------------Useful functions:
 
-    public NumericVariable multi(NumericVariable a){
+    public NumericVariable multiply(NumericVariable a){
         try{
-            return new NumericVariable(numer*a.getNumer(),denom*a.getDenom());
-        } catch(Exception ex){
+            return new NumericVariable(numerator*a.getNumerator(),denominator*a.getDenominator());
+        } catch(Exception exception){
         }
         return null;
     }
 
     public NumericVariable sum(NumericVariable b){
-        int inde=Utils.gcc(denom,b.getDenom());
+        int commonDenominator=Utils.lcm(denominator,b.getDenominator());
         try{
-            return new NumericVariable(inde/denom*numer+inde/b.getDenom()*b.getNumer(),inde);
-        } catch(Exception ex){
+            return new NumericVariable(commonDenominator/denominator*numerator+commonDenominator/b.getDenominator()*b.getNumerator(),commonDenominator);
+        } catch(Exception exception){
         }
         return null;
     }
 
     public NumericVariable simplify(){
-        int factor=Utils.gcd(numer,denom);
+        int factor=Utils.gcd(numerator,denominator);
         try{
-            return new NumericVariable(numer/factor,denom/factor);
-        } catch(Exception ex){
+            return new NumericVariable(numerator/factor,denominator/factor);
+        } catch(Exception exception){
         }
         return null;
     }
