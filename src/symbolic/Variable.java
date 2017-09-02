@@ -34,7 +34,7 @@ public class Variable{
             this.coefficient=new NumericVariable("1");
         else
             this.coefficient=new NumericVariable(stringCoefficent);
-        if("".equals(tokens[1]))
+        if(tokens.length==1||"".equals(tokens[1]))
             this.power=new NumericVariable("1");
         else
             this.power=new NumericVariable(tokens[1]);
@@ -52,6 +52,20 @@ public class Variable{
     public void setCoefficient(NumericVariable coefficient){
         this.coefficient=coefficient;
     }
+
+    public NumericVariable getCoefficient(){
+        return coefficient;
+    }
+
+    public String getLable(){
+        return lable;
+    }
+
+    public NumericVariable getPower(){
+        return power;
+    }
+    
+    
 
     public void setAttrib(String lable,NumericVariable power,NumericVariable coefficient){
         this.lable=lable;
