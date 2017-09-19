@@ -90,5 +90,9 @@ public class Phrase{
         System.out.println(p1);
         System.out.println(p1.getAllUsedVariables());
     }
+    
+//    public static Phrase multiply(Phrase leftPfrase){
+//        
+//    }
 
 }

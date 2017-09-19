@@ -14,6 +14,11 @@ package symbolic;
 //
 //}
 public class NumericVariable extends Variable{
+    
+    public static NumericVariable HALF =new NumericVariable("1/2");
+    public static NumericVariable ONE =new NumericVariable("1");
+    public static NumericVariable ZERO =new NumericVariable("0");
+    
 
     private String value;
     private int numerator;
@@ -59,6 +64,9 @@ public class NumericVariable extends Variable{
     public String getValue(){
         return value;
     }
+    public boolean isInteger(){
+        return isInt;
+    }
 
  
 
@@ -68,6 +76,7 @@ public class NumericVariable extends Variable{
         try{
             return new NumericVariable(numerator*a.getNumerator(),denominator*a.getDenominator());
         } catch(Exception exception){
+            System.out.println(exception);
         }
         return null;
     }
@@ -89,6 +98,10 @@ public class NumericVariable extends Variable{
         }
         return null;
     }
+    
+    public Integer integerValue(){
+        return numerator/denominator;
+    }
 
     @Override
     public String toString(){
@@ -97,4 +110,24 @@ public class NumericVariable extends Variable{
         String ret=value.replace("/","⁄");
         return Utils.toSuperScriptNumbers(parts[0])+"⁄"+Utils.toSubScriptNumbers(parts[1]);
     }
+
+    @Override
+    public boolean equals(Object obj){
+        if(!(obj instanceof NumericVariable)) return false;
+        NumericVariable rhs=(NumericVariable)obj;
+        NumericVariable lhs=this.simplify();
+        rhs=rhs.simplify();
+        return (rhs.numerator== lhs.numerator && lhs.denominator == rhs.denominator);
+    }
+
+    @Override
+    public int hashCode(){
+        NumericVariable simplified=this.simplify();
+        int hash=7;
+        hash=29*hash+simplified.numerator;
+        hash=29*hash+simplified.denominator;
+        return hash;
+    }
+    
+    
 }
